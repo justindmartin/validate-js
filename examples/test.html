@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Validation Example 1</title>
+		<style type="text/css">
+			*{
+				font-family:Arial,sans-serif,helvetica;
+			}
+			th{
+				text-align:left;
+			}
+			th,td{
+				padding:5px 10px;
+			}
+		</style>
+		<script type="text/javascript" src="../src/validate.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("DOMContentLoaded", function(){
+				//build validation test table
+
+				//test ISBN13
+				var ISBN13s = ['9781861972712', '9781681972712'];
+				for(var i = 0; i < ISBN13s.length; i++){
+					document.getElementsByTagName('tbody')[0].innerHTML += '<tr>' + '<td>' + ISBN13s[i] + '</td><td>' + validate.ISBN13(ISBN13s[i]) + '</td></tr>';
+				}
+
+			}, false);
+		</script>
+	</head>
+	<body>
+		<h1>Validation Example 1</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Standard</th>
+					<th>Valid</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</body>
+</html>
