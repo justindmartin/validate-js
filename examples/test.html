@@ -6,6 +6,27 @@
 			*{
 				font-family:Arial,sans-serif,helvetica;
 			}
+			table{
+				margin:auto;
+			}
+			thead{
+				background-color:#DDD;
+			}
+			tr.false{
+				background-color:rgb(200,0,0);
+				color:#FFF;
+			}
+			tr.true{
+				background-color:rgb(0,200,0);
+				color:#FFF;
+			}
+			tr.firstOfType td{
+				padding-top:10px;
+			}
+			tr.lastOfType td{
+				padding-bottom:10px;
+				border-bottom:solid 1px #DDD;
+			}
 			th{
 				text-align:left;
 			}
@@ -18,10 +39,33 @@
 			window.addEventListener("DOMContentLoaded", function(){
 				//build validation test table
 
-				//test ISBN13
-				var ISBN13s = ['9781861972712', '9781681972712'];
-				for(var i = 0; i < ISBN13s.length; i++){
-					document.getElementsByTagName('tbody')[0].innerHTML += '<tr>' + '<td>' + ISBN13s[i] + '</td><td>' + validate.ISBN13(ISBN13s[i]) + '</td></tr>';
+				var testData = [
+					['Email Address', 'validate.email', 'bgates@microsoft.com', true],
+					['Email Address', 'validate.email', 'bgates@microsoft', false],
+					['Email Address', 'validate.email', 'bgates@microsoft .com', false],
+					['ISBN', 'validate.ISBN', '9781861972712', true],
+					['ISBN', 'validate.ISBN', '9781681972712', false],
+					['ISBN', 'validate.ISBN', '5', false],
+					['ISBN', 'validate.ISBN', '026202506X', true],
+					['URL', 'validate.URL', 'ftp://www.google.com', true],
+					['URL', 'validate.URL', 'http://www.google.com', true],
+					['URL', 'validate.URL', 'https://www.google.com', true],
+					['URL', 'validate.URL', 'www.google.com', true],
+					['URL', 'validate.URL', 'google.com', true],
+					['URL', 'validate.URL', 'google', false]
+				];
+				
+
+				for(var i = 0; i < testData.length; i++){
+					var expectedValue = testData[i][3];
+					var actualValue = eval(testData[i][1])(testData[i][2]);
+					var tableRow = '<tr class="' + (expectedValue == actualValue) + ((i + 1 != testData.length && testData[i][0] != testData[i+1][0]) ? ' lastOfType' : '') + ((i - 1 != -1 && testData[i][0] != testData[i-1][0]) ? ' firstOfType' : '') + '">';
+					tableRow += '<td>' + testData[i][0]  + '</td>';
+					tableRow += '<td>' + testData[i][2] + '</td>';
+					tableRow += '<td>' + expectedValue + '</td>';
+					tableRow += '<td>' + actualValue + '</td>';
+					tableRow += '</tr>';
+					document.getElementsByTagName('tbody')[0].innerHTML += tableRow;
 				}
 
 			}, false);
@@ -29,11 +73,13 @@
 	</head>
 	<body>
 		<h1>Validation Test</h1>
-		<table>
+		<table cellspacing="0">
 			<thead>
 				<tr>
 					<th>Standard</th>
-					<th>Valid</th>
+					<th>Test Case</th>
+					<th>Expected Output</th>
+					<th>Actual Output</th>
 				</tr>
 			</thead>
 			<tbody>
