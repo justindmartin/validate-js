@@ -1,3 +1,12 @@
+/*!
+ * validate-js
+ * http://github.com/justindmartin1/validate-js
+ *
+ * Copyright 2013 Justin Martin
+ * Released under the MIT license
+ * http://github.com/justindmartin1/validate-js/blob/master/LICENSE.md
+ */
+
 var validate = {
 	email: function(emailAddress){
 		var regex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/);
