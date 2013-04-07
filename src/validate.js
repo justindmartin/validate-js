@@ -44,6 +44,26 @@ var validate = {
 			return false;
 		}
 	},
+	phoneNumber: function(phoneNumber){
+		//only validates United States phone numbers
+
+		//remove all non numeric characters
+		phoneNumber = phoneNumber.replace(/\D/g,'');
+
+		//if phoneNumber is correct length
+		if(phoneNumber.length == 7 || phoneNumber.length == 10 || phoneNumber.length == 11){
+			if(phoneNumber.length == 11){
+				phoneNumber = phoneNumber.substr(1,10);
+			}
+			if(parseInt(phoneNumber.substr(0,1)) < 2){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}
+	},
 	URL: function(URL){
 		var regex = new RegExp(/^((ht|f)tps?\:\/\/)?[a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})/i);
 		return regex.test(URL);
