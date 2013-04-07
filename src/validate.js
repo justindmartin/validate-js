@@ -9,8 +9,7 @@
 
 var validate = {
 	email: function(emailAddress){
-		var regex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/);
-		return regex.test(emailAddress);
+		return (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/).test(emailAddress);
 	},
 	ISBN: function(ISBN){
 
@@ -44,7 +43,7 @@ var validate = {
 			return false;
 		}
 	},
-	phoneNumber: function(phoneNumber){
+	USPhoneNumber: function(phoneNumber){
 		//only validates United States phone numbers
 
 		//remove all non numeric characters
@@ -65,7 +64,10 @@ var validate = {
 		}
 	},
 	URL: function(URL){
-		var regex = new RegExp(/^((ht|f)tps?\:\/\/)?[a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})/i);
-		return regex.test(URL);
+		return (/^((ht|f)tps?\:\/\/)?[a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})/i).test(URL);
+	},
+	USZipCode: function(zipCode){
+		//only validates United States Zip Codes
+		return (/(^\d{5}$)|(^\d{5}-\d{4}$)/).test(zipCode);
 	}
 };
